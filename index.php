@@ -1,3 +1,14 @@
+<?php
+    session_start();
+    require("database.php");
+    $queryStudents = 'SELECT * FROM students';
+    $statement1 = $db->prepare($queryStudents);
+    $statement1->execute();
+    $students = $statement1->fetchALL();
+
+    $statement1->closeCursor();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +29,18 @@
                 <th>Scheduale</th>
                 <th>Start Date of the Course</th>
             </tr>
+
+            <?php foreach ($students as $student):  ?>
+                <tr>
+                    <td><?php echo $student['firstName'] ?></td>
+                    <td><?php echo $student['lastName'] ?></td>
+                    <td><?php echo $student['course'] ?></td>
+                    <td><?php echo $student['attendance'] ?></td>
+                    <td><?php echo $student['scheduale'] ?></td>
+                    <td><?php echo $student['stdCourse'] ?></td>
+                </tr>
+
+            <?php endforeach; ?>    
         </table>
     </main>
 
