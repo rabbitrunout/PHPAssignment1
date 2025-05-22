@@ -12,13 +12,13 @@
 <html>
 <head>
     <title>Students Directory</title>
-    <link rel="stylesheet" type="text/css" href="..css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
 </head>
 <body>
     <?php include ("header.php");  ?>
 
     <main>
-        <h2>Students List</h2>
+        <h2>🍍 Bikini Bottom Student List 🍍</h2>
         <table>
             <tr>
                 <th>First Name</th>
