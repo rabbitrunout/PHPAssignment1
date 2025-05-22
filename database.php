@@ -1,6 +1,6 @@
 <?php
     session_start();
-    $dsn = 'musql:host=localhost;dbname=students_directory';
+    $dsn = 'mysql:host=localhost;dbname=students_directory';
     $username = 'root';
     $password = '';
 
@@ -9,7 +9,7 @@
     }
     catch (PDOException $e)
     {
-        $_SESSION["database_error"]=$e->getMessage();
+        $_SESSION["database_error"] = $e->getMessage();
         $url = "database_error.php";
         header("Location: " . $url);
         exit();

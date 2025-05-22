@@ -4,16 +4,15 @@
     $queryStudents = 'SELECT * FROM students';
     $statement1 = $db->prepare($queryStudents);
     $statement1->execute();
-    $students = $statement1->fetchALL();
+    $students = $statement1->fetchAll();
 
     $statement1->closeCursor();
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>Students Directory</title>
-    <link rel="stylesheet" type="txt/css" href="css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="..css/main.css"/>
 </head>
 <body>
     <?php include ("header.php");  ?>
@@ -26,7 +25,7 @@
                 <th>Last Name</th>
                 <th>Course</th>
                 <th>Attendance</th>
-                <th>Scheduale</th>
+                <th>Schedule</th>
                 <th>Start Date of the Course</th>
             </tr>
 
@@ -36,8 +35,8 @@
                     <td><?php echo $student['lastName'] ?></td>
                     <td><?php echo $student['course'] ?></td>
                     <td><?php echo $student['attendance'] ?></td>
-                    <td><?php echo $student['scheduale'] ?></td>
-                    <td><?php echo $student['stdCourse'] ?></td>
+                    <td><?php echo $student['schedule'] ?></td>
+                    <td><?php echo $student['startDate'] ?></td>
                 </tr>
 
             <?php endforeach; ?>    
