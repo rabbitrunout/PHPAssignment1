@@ -12,7 +12,7 @@
 <html>
 <head>
     <title>Students Directory</title>
-    <link rel="stylesheet" type="text/css" href="css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
 </head>
 <body>
     <?php include ("header.php");  ?>
@@ -27,6 +27,7 @@
                 <th>Attendance</th>
                 <th>Schedule</th>
                 <th>Start Date of the Course</th>
+                <th>Photo</th>
                 <th>&nbsp;</th> <!-- for edit button -->
                 <th>&nbsp;</th> <!-- for delete button -->
             </tr>

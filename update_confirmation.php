@@ -3,7 +3,8 @@
 <html>
 <head>
     <title>Student Manager - Update Confirmation</title>
-    <link rel="stylesheet" type="text/css" href="css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+
 </head>
 <body>
 

@@ -6,7 +6,8 @@
 <html>
 <head>
     <title>Student Manager - Error</title>
-    <link rel="stylesheet" type="text/css" href="css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+
 </head>
 <body>
     <?php include ("header.php"); ?>

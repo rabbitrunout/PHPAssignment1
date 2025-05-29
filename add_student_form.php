@@ -3,7 +3,8 @@
 <html>
 <head>
     <title>Contact Manager - Add Student</title>
-    <link rel="stylesheet" type="text/css" href="css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+
 </head>
 <body>
     <?php include ("header.php"); ?>
@@ -27,8 +28,20 @@
                 <input type="text" name="attendance" /> <br />   
                     
                 <label>Schedule:</label>
-                <input type="radio" name="schedule" value="morning"> Morning <br>
-                <input type="radio" name="schedule" value="evening"> Evening <br>
+                <div class="radio-group">
+                    <label class="custom-radio">
+                    <input type="radio" name="schedule" value="morning" />
+                    <span class="bubble"></span>
+                        🌞 Morning
+                    </label>
+
+                    <label class="custom-radio">
+                    <input type="radio" name="schedule" value="evening" />
+                    <span class="bubble"></span>
+                        🌙 Evening
+                    </label>
+                </div>
+                
 
                 <label>Start Date of the Course:</label>
                 <input type="date" name="start_date" /> <br />    
