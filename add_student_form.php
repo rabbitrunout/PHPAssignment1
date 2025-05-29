@@ -30,8 +30,6 @@
                 <input type="radio" name="schedule" value="morning"> Morning <br>
                 <input type="radio" name="schedule" value="evening"> Evening <br>
 
-
-
                 <label>Start Date of the Course:</label>
                 <input type="date" name="start_date" /> <br />    
 
