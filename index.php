@@ -48,7 +48,7 @@
                         </form>
                      </td> <!-- for edit button -->
                      <td>
-                        <form action="delete_student_form.php" method="post">
+                        <form action="delete_student.php" method="post">
                             <input type="hidden" name="student_id"
                                     value="<?php echo $student['studentID'];  ?>" />
                             <input type="submit" value="Delete" />        
