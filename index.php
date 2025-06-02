@@ -40,7 +40,7 @@
                     <td><?php echo $student['attendance'] ?></td>
                     <td><?php echo $student['schedule'] ?></td>
                     <td><?php echo $student['startDate'] ?></td>
-                    <td><img src="<?php echo htmlspecialchars('./images/' . $student['imageName']); ?>" alt="<?php echo htmlspecialchars('./images/' . $student['imageName']); ?>" style="width:100px; height:auto;" /></td>
+                    <td><img src="<?php echo htmlspecialchars('./images/' . $student['imageName']); ?>" alt="<?php echo htmlspecialchars('./images/' . $student['imageName']); ?>" /></td>
                      <td>
                         <form action="update_student_form.php" method="post">
                             <input type="hidden" name="student_id"
@@ -60,6 +60,8 @@
             <?php endforeach; ?>    
         </table>
         <p><a href="add_student_form.php">Add Student</a></p>
+
+         <p><a href="logout.php">Logout</a></p>
     </main>
 
     <?php include ("footer.php"); ?>

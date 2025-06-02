@@ -48,9 +48,9 @@
 
                     <label>Schedule:</label>
                     <input type="radio" name="schedule" value="morning"
-                      <?php echo ($student['schedule'] == 'morning') ? 'checked' : ''; ?> /> Morning<br />
+                      <?php echo ($student['schedule'] == 'morning') ? 'checked' : ''; ?> /> 🌞 Morning<br />
                     <input type="radio" name="schedule" value="evening"
-                      <?php echo ($student['schedule'] == 'evening') ? 'checked' : ''; ?> /> Evening<br />
+                      <?php echo ($student['schedule'] == 'evening') ? 'checked' : ''; ?> /> 🌙  Evening<br />
 
                     <label>Start Date:</label>
                     <input type="date" name="start_date"
