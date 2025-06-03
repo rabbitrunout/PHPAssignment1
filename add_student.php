@@ -32,14 +32,20 @@
     $attendance = filter_input(INPUT_POST, 'attendance');
     $schedule = filter_input(INPUT_POST, 'schedule'); // assigns the value of the selected radio button
     $start_date = filter_input(INPUT_POST, 'start_date');
+    $type_id = filter_input(INPUT_POST, 'type_id', FILTER_VALIDATE_INT);
+
     $image_name = $_FILES['file1']['name'];
+
+    // $i = strrpos($image_name, '.');
+    // $image_name = substr($image_name, 0, $i);
+    // $ext = substr($image_name, $i);
+    // $image_name_100 = $image_name . '_100' . $ext;
 
     require_once('database.php');
     $queryStudents = 'SELECT * FROM students';
     $statement1 = $db->prepare($queryStudents);
     $statement1->execute();
     $students = $statement1->fetchAll();
-
     $statement1->closeCursor();
 
     foreach ($students as $student)
@@ -56,7 +62,7 @@
     }
 
     if ($first_name == null || $last_name == null ||
-        $course == null || $attendance == null  || $schedule == null  || $start_date == null)
+        $course == null || $attendance == null  || $schedule == null  || $start_date == null || $type_id === false)
 
     {
         $_SESSION["add_error"] = "Invalid contact data, Check all fields and try again.";
@@ -72,9 +78,9 @@
 
         // Add the contact to the database
         $query = 'INSERT INTO students
-            (firstName, lastName, course, attendance, schedule, startDate, imageName)
+            (firstName, lastName, course, attendance, schedule, startDate, imageName, typeID)
             VALUES
-            (:firstName, :lastName, :course, :attendance, :schedule, :startDate, :imageName)';
+            (:firstName, :lastName, :course, :attendance, :schedule, :startDate, :imageName, :typeID)';
 
         $statement = $db->prepare($query);
         $statement->bindValue(':firstName', $first_name);
@@ -84,7 +90,7 @@
         $statement->bindValue(':schedule', $schedule);
         $statement->bindValue(':startDate', $start_date);
         $statement->bindValue(':imageName', $image_name);
-
+        $statement->bindValue(':typeID', $type_id);
         $statement->execute();
         $statement->closeCursor();
 

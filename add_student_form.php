@@ -1,4 +1,11 @@
-
+<?php
+    require_once('database.php');
+    $queryTypes = 'SELECT * FROM types';
+    $statement = $db->prepare($queryTypes);
+    $statement->execute();
+    $types = $statement->fetchAll();
+    $statement->closeCursor();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,7 +51,17 @@
                 
 
                 <label>Start Date of the Course:</label>
-                <input type="date" name="start_date" /> <br />    
+                <input type="date" name="start_date" /> <br />  
+
+
+               <label>Student Type:</label>
+                    <select name="type_id">
+                        <?php foreach ($types as $type): ?>
+                            <option value="<?php echo $type['typeID']; ?>">
+                                <?php echo $type['studentType']; ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select><br /> 
 
                 <label>Upload Image:</label>
                 <input type="file" name="file1" /> <br /> 
