@@ -1,4 +1,4 @@
- <?php
+<?php
     session_start();
 
     // get data from the form
@@ -55,7 +55,7 @@
 
     }
 
-    $_SESSION["isLoggedIn"] = 1;
+    $_SESSION["isLoggedIn"] = TRUE;
     $_SESSION["userName"] = $user_name;
 
     // redirect to confirmation page

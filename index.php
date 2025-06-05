@@ -1,12 +1,14 @@
 <?php
-    session_start();
-    require("database.php");
-    $queryStudents = 'SELECT * FROM students';
-    $statement1 = $db->prepare($queryStudents);
-    $statement1->execute();
-    $students = $statement1->fetchAll();
+session_start();
+require("database.php");
 
-    $statement1->closeCursor();
+$query = 'SELECT s.*, t.studentType 
+          FROM students s 
+          LEFT JOIN types t ON s.typeID = t.typeID';
+$statement = $db->prepare($query);
+$statement->execute();
+$students = $statement->fetchAll();
+$statement->closeCursor();
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,10 +17,11 @@
     <link rel="stylesheet" type="text/css" href="css/main.css" />
 </head>
 <body>
-    <?php include ("header.php");  ?>
+    <?php include("header.php"); ?>
 
     <main>
         <h2>🍍 Bikini Bottom Student List 🍍</h2>
+    <div class="table-container">
         <table>
             <tr>
                 <th>First Name</th>
@@ -26,45 +29,46 @@
                 <th>Course</th>
                 <th>Attendance</th>
                 <th>Schedule</th>
-                <th>Start Date of the Course</th>
+                <th>Start Date</th>
+                <th>Type</th>
                 <th>Photo</th>
-                <th>&nbsp;</th> <!-- for edit button -->
-                <th>&nbsp;</th> <!-- for delete button -->
+                <th colspan="2">Actions</th>
             </tr>
 
-            <?php foreach ($students as $student):  ?>
+            <?php foreach ($students as $student): ?>
                 <tr>
-                    <td><?php echo $student['firstName'] ?></td>
-                    <td><?php echo $student['lastName'] ?></td>
-                    <td><?php echo $student['course'] ?></td>
-                    <td><?php echo $student['attendance'] ?></td>
-                    <td><?php echo $student['schedule'] ?></td>
-                    <td><?php echo $student['startDate'] ?></td>
-                    <td><img src="<?php echo htmlspecialchars('./images/' . $student['imageName']); ?>" alt="<?php echo htmlspecialchars('./images/' . $student['imageName']); ?>" /></td>
-                     <td>
+                    <td><?php echo htmlspecialchars($student['firstName']); ?></td>
+                    <td><?php echo htmlspecialchars($student['lastName']); ?></td>
+                    <td><?php echo htmlspecialchars($student['course']); ?></td>
+                    <td><?php echo htmlspecialchars($student['attendance']); ?></td>
+                    <td><?php echo htmlspecialchars($student['schedule']); ?></td>
+                    <td><?php echo htmlspecialchars($student['startDate']); ?></td>
+                    <td><?php echo htmlspecialchars($student['studentType']); ?></td>
+                    <td>
+                        <img src="<?php echo './images/' . htmlspecialchars($student['imageName']); ?>" 
+                             alt="Student Image" />
+                    </td>
+                    <td>
                         <form action="update_student_form.php" method="post">
-                            <input type="hidden" name="student_id"
-                                    value="<?php echo $student['studentID'];  ?>" />
-                            <input type="submit" value="Update" />        
+                            <input type="hidden" name="student_id" value="<?php echo $student['studentID']; ?>" />
+                            <input type="submit" value="Update" />
                         </form>
-                     </td> <!-- for edit button -->
-                     <td>
-                        <form action="delete_student.php" method="post">
-                            <input type="hidden" name="student_id"
-                                    value="<?php echo $student['studentID'];  ?>" />
-                            <input type="submit" value="Delete" />        
+                    </td>
+                    <td>
+                        <form action="delete_student.php" method="post" onsubmit="return confirm('Are you sure you want to delete this student?');">
+                            <input type="hidden" name="student_id" value="<?php echo $student['studentID']; ?>" />
+                            <input type="submit" value="Delete" />
                         </form>
-                     </td>
+                    </td>
                 </tr>
-
-            <?php endforeach; ?>    
+            <?php endforeach; ?>
         </table>
-        <p><a href="add_student_form.php">Add Student</a></p>
+    </div>
 
-         <p><a href="logout.php">Logout</a></p>
+        <p><a href="add_student_form.php">➕ Add Student</a></p>
+        <p><a href="logout.php">🚪 Logout</a></p>
     </main>
 
-    <?php include ("footer.php"); ?>
-    
+    <?php include("footer.php"); ?>
 </body>
 </html>

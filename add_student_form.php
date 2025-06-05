@@ -17,7 +17,7 @@
     <?php include ("header.php"); ?>
 
     <main>
-        <h2>Add Student</h2>
+        <h2> 📝 Add Student</h2>
         
         <form action="add_student.php" method="post" enctype="multipart/form-data" >
 
@@ -73,7 +73,7 @@
             </div>
         </form>
 
-        <p><a href="index.php"> View Students List </a></p>
+        <p><a href="index.php"> ⬅ Back to Student List </a></p>
     </main>
 
     <?php include ("footer.php"); ?>

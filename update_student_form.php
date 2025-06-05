@@ -5,13 +5,17 @@
 
     // select the contact from the database
     $query = 'SELECT * FROM students WHERE studentID = :student_id';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':student_id', $student_id);        
+    $statement->execute();
+    $student = $statement->fetch();
+    $statement->closeCursor();
 
-        $statement = $db->prepare($query);
-        $statement->bindValue(':student_id', $student_id);        
-
-        $statement->execute();
-        $student = $statement->fetch();
-        $statement->closeCursor();
+    $queryTypes = 'SELECT * FROM types';
+    $statement2 = $db->prepare($queryTypes);
+    $statement2->execute();
+    $types = $statement2->fetchAll();
+    $statement2->closeCursor();
 ?>
 <!DOCTYPE html>
 <html>
@@ -55,8 +59,26 @@
                     <label>Start Date:</label>
                     <input type="date" name="start_date"
                         value="<?php echo $student['startDate']; ?>" /><br />
-                </div>
-                <div id="buttons">
+                    
+                    <label>Student Type:</label>
+                    <select name="type_id">
+                        <?php foreach ($types as $type): ?>
+                        <option value="<?php echo $type['typeID']; ?>"
+                        <?php if ($type['typeID'] == $student['typeID']) echo 'selected'; ?>>
+                        <?php echo htmlspecialchars($type['studentType']); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select><br />
+
+            <?php if (!empty($student['imageName'])): ?>
+                <label>Current Image:</label>
+                <img src="images/<?php echo htmlspecialchars($student['imageName']); ?>" height="100"><br />
+            <?php endif; ?>
+
+            <label>Update Image:</label>
+            <input type="file" name="image"><br />
+            </div>
+            <div id="buttons">
                     <label>&nbsp;</label>
                     <input type="submit" value="Update Student" /><br />
                 </div>

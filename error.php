@@ -6,8 +6,7 @@
 <html>
 <head>
     <title>Student Manager - Error</title>
-    <link rel="stylesheet" type="text/css" href="css/main.css" />
-
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
 </head>
 <body>
     <?php include ("header.php"); ?>
@@ -18,8 +17,8 @@
             <?php  echo $_SESSION["add_error"];  ?>  
         </p>
 
-        <p><a href="add_student_form.php"> Add Student </a></p>
-        <p><a href="index.php"> View Students List </a></p>
+        <p><a href="add_student_form.php"> Add Contact </a></p>
+        <p><a href="index.php"> View Student List </a></p>
     </main>
 
     <?php include ("footer.php"); ?>

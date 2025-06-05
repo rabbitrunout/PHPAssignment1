@@ -1,10 +1,10 @@
- <?php
+<?php
     session_start();    
 ?>
 <!DOCTYPE html>
 <html>
     <head>
-        <title> Student Manager - Registration Confirmation</title>
+        <title>Contact Manager - Registration Confirmation</title>
         <link rel="stylesheet" type="text/css" href="css/main.css" />
     </head>
     <body>
@@ -19,7 +19,7 @@
 
             <p>You are logged in and may proceed to the contact list by clicking below.</p>
             
-            <p><a href="index.php"> Student List</a></p>
+            <p><a href="index.php">Contact List</a></p>
         </main>
 
         <?php include("footer.php"); ?>
