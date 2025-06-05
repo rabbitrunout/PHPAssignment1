@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Students Directory</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+</head>
+<body>
 <?php
 session_start();
 require("database.php");
@@ -10,19 +17,14 @@ $statement->execute();
 $students = $statement->fetchAll();
 $statement->closeCursor();
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Students Directory</title>
-    <link rel="stylesheet" type="text/css" href="css/main.css" />
-</head>
-<body>
-    <?php include("header.php"); ?>
 
-    <main>
-        <h2>🍍 Bikini Bottom Student List 🍍</h2>
+<?php include("header.php"); ?>
+
+<main>
+    <h2>🍍 Bikini Bottom Student List 🍍</h2>
     <div class="table-container">
         <table>
+            <thead>
             <tr>
                 <th>First Name</th>
                 <th>Last Name</th>
@@ -34,27 +36,27 @@ $statement->closeCursor();
                 <th>Photo</th>
                 <th colspan="2">Actions</th>
             </tr>
-
+            </thead>
+            <tbody>
             <?php foreach ($students as $student): ?>
                 <tr>
-                    <td><?php echo htmlspecialchars($student['firstName']); ?></td>
-                    <td><?php echo htmlspecialchars($student['lastName']); ?></td>
-                    <td><?php echo htmlspecialchars($student['course']); ?></td>
-                    <td><?php echo htmlspecialchars($student['attendance']); ?></td>
-                    <td><?php echo htmlspecialchars($student['schedule']); ?></td>
-                    <td><?php echo htmlspecialchars($student['startDate']); ?></td>
-                    <td><?php echo htmlspecialchars($student['studentType']); ?></td>
-                    <td>
-                        <img src="<?php echo './images/' . htmlspecialchars($student['imageName']); ?>" 
-                             alt="Student Image" />
+                    <td data-label="First Name"><?php echo htmlspecialchars($student['firstName']); ?></td>
+                    <td data-label="Last Name"><?php echo htmlspecialchars($student['lastName']); ?></td>
+                    <td data-label="Course"><?php echo htmlspecialchars($student['course']); ?></td>
+                    <td data-label="Attendance"><?php echo htmlspecialchars($student['attendance']); ?></td>
+                    <td data-label="Schedule"><?php echo htmlspecialchars($student['schedule']); ?></td>
+                    <td data-label="Start Date"><?php echo htmlspecialchars($student['startDate']); ?></td>
+                    <td data-label="Type"><?php echo htmlspecialchars($student['studentType']); ?></td>
+                    <td data-label="Photo">
+                        <img src="<?php echo './images/' . htmlspecialchars($student['imageName']); ?>" alt="Student Image" />
                     </td>
-                    <td>
+                    <td data-label="Update">
                         <form action="update_student_form.php" method="post">
                             <input type="hidden" name="student_id" value="<?php echo $student['studentID']; ?>" />
                             <input type="submit" value="Update" />
                         </form>
                     </td>
-                    <td>
+                    <td data-label="Delete">
                         <form action="delete_student.php" method="post" onsubmit="return confirm('Are you sure you want to delete this student?');">
                             <input type="hidden" name="student_id" value="<?php echo $student['studentID']; ?>" />
                             <input type="submit" value="Delete" />
@@ -62,13 +64,14 @@ $statement->closeCursor();
                     </td>
                 </tr>
             <?php endforeach; ?>
+            </tbody>
         </table>
     </div>
 
-        <p><a href="add_student_form.php">➕ Add Student</a></p>
-        <p><a href="logout.php">🚪 Logout</a></p>
-    </main>
+    <p><a href="add_student_form.php">➕ Add Student</a></p>
+    <p><a href="logout.php">🚪 Logout</a></p>
+</main>
 
-    <?php include("footer.php"); ?>
+<?php include("footer.php"); ?>
 </body>
 </html>
