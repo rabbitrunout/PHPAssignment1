@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Contact Manager - Register</title>
+        <title>Student Manager - Register</title>
         <link rel="stylesheet" type="text/css" href="css/main.css" />
     </head>
     <body>
