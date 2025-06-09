@@ -34,7 +34,7 @@ $statement->closeCursor();
                 <th>Start Date</th>
                 <th>Type</th>
                 <th>Photo</th>
-                <th colspan="2">Actions</th>
+                <th colspan="3">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -62,6 +62,12 @@ $statement->closeCursor();
                             <input type="submit" value="Delete" />
                         </form>
                     </td>
+                     <td>
+                            <form action="student_details.php" method="post">
+                                <input type="hidden" name="student_id" value="<?php echo $student['studentID']; ?>" />
+                                <input type="submit" value="View Details" />
+                            </form>
+                        </td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

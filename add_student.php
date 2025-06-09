@@ -1,28 +1,6 @@
 <?php
     session_start();
 
-    require_once 'image_util.php'; // the process_image function
-
-    $image_dir = 'images';
-    $image_dir_path = getcwd() . DIRECTORY_SEPARATOR . $image_dir;
-
-    if (isset($_FILES['file1']))
-    {
-        $filename = $_FILES['file1']['name'];
-
-        if (!empty($filename))
-        {
-            $source = $_FILES['file1']['tmp_name'];
-
-            $target = $image_dir_path . DIRECTORY_SEPARATOR . $filename;
-
-            move_uploaded_file($source, $target);
-
-            // create the '400' and '100' versions of the image
-            process_image($image_dir_path, $filename);
-        }
-    }
-
     // get data from the form
     $first_name = filter_input(INPUT_POST, 'first_name');
     // alternative
@@ -33,15 +11,13 @@
     $schedule = filter_input(INPUT_POST, 'schedule'); // assigns the value of the selected radio button
     $start_date = filter_input(INPUT_POST, 'start_date');
     $type_id = filter_input(INPUT_POST, 'type_id', FILTER_VALIDATE_INT);
-
     $image_name = $_FILES['file1']['name'];
 
-    // $i = strrpos($image_name, '.');
-    // $image_name = substr($image_name, 0, $i);
-    // $ext = substr($image_name, $i);
-    // $image_name_100 = $image_name . '_100' . $ext;
-
     require_once('database.php');
+    require_once('image_util.php');
+
+    $base_dir = 'images/';
+
     $queryStudents = 'SELECT * FROM students';
     $statement1 = $db->prepare($queryStudents);
     $statement1->execute();
@@ -71,10 +47,36 @@
         header("Location: " . $url);
         die();
     }
-    else
-    {        
 
-        require_once('database.php');
+    $image_name = '';  // default empty
+
+    if ($image && $image['error'] === UPLOAD_ERR_OK) {
+    // Process new image
+    $original_filename = basename($image['name']);
+    $upload_path = $base_dir . $original_filename;
+    move_uploaded_file($image['tmp_name'], $upload_path);
+    process_image($base_dir, $original_filename);
+
+    // Save _100 version in DB
+    $dot_pos = strrpos($original_filename, '.');
+    $name_100 = substr($original_filename, 0, $dot_pos) . '_100' . substr($original_filename, $dot_pos);
+    $image_name = $name_100;
+    } else {
+    // Use placeholder
+    $placeholder = 'placeholder.jpg';
+    $placeholder_100 = 'placeholder_100.jpg';
+    $placeholder_400 = 'placeholder_400.jpg';
+
+    if (!file_exists($base_dir . $placeholder_100) || !file_exists($base_dir . $placeholder_400)) {
+        process_image($base_dir, $placeholder);
+    }
+
+    $image_name = $placeholder_100;
+}
+
+
+            
+
 
         // Add the contact to the database
         $query = 'INSERT INTO students
@@ -94,7 +96,7 @@
         $statement->execute();
         $statement->closeCursor();
 
-    }
+    
     $_SESSION["fullName"] = $first_name . " " . $last_name;
 
     // redirect to confirmation page
