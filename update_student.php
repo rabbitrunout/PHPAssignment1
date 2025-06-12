@@ -14,14 +14,14 @@ $start_date = filter_input(INPUT_POST, 'start_date');
 $type_id = filter_input(INPUT_POST, 'type_id', FILTER_VALIDATE_INT);
 $image = $_FILES['image'] ?? null;
 
-// Проверка обязательных полей
+// 
 if (!$student_id || !$first_name || !$last_name || !$course || !$attendance || !$schedule || !$start_date || !$type_id) {
     $_SESSION["add_error"] = "Invalid student data. Check all fields and try again.";
     header("Location: error.php");
     exit;
 }
 
-// Получение текущего изображения
+// 
 $query = 'SELECT * FROM students WHERE studentID = :studentID';
 $statement = $db->prepare($query);
 $statement->bindValue(':studentID', $student_id);
@@ -39,7 +39,7 @@ $old_image_name = $current_student['imageName'];
 $image_name = $old_image_name;
 $base_dir = 'images/';
 
-// Обработка дубликатов по имени
+// 
 $queryStudents = 'SELECT * FROM students WHERE studentID != :studentID';
 $statement = $db->prepare($queryStudents);
 $statement->bindValue(':studentID', $student_id);
@@ -55,7 +55,7 @@ foreach ($students as $s) {
     }
 }
 
-// Загрузка нового изображения
+// 
 if ($image && $image['error'] === UPLOAD_ERR_OK) {
     $original_filename = basename($image['name']);
     $upload_path = $base_dir . $original_filename;
@@ -67,7 +67,7 @@ if ($image && $image['error'] === UPLOAD_ERR_OK) {
     $new_image_name = substr($original_filename, 0, $dot_pos) . '_100' . substr($original_filename, $dot_pos);
     $image_name = $new_image_name;
 
-    // Удаление старых изображений
+    // Delete
     if ($old_image_name !== 'placeholder_100.jpg') {
         $old_base = substr($old_image_name, 0, strrpos($old_image_name, '_100'));
         $old_ext = substr($old_image_name, strrpos($old_image_name, '.'));
@@ -82,7 +82,7 @@ if ($image && $image['error'] === UPLOAD_ERR_OK) {
     }
 }
 
-// Обновление данных студента
+// Update student
 $query = '
     UPDATE students
     SET firstName = :firstName,

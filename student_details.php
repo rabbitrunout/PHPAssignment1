@@ -2,14 +2,14 @@
 session_start();
 require_once("database.php");
 
-// Получение student_id из POST
+// 
 $student_id = filter_input(INPUT_POST, 'student_id', FILTER_VALIDATE_INT);
 if (!$student_id) {
     header("Location: index.php");
     exit;
 }
 
-// Получение данных студента + типа
+//
 $query = 'SELECT s.*, t.studentType 
           FROM students s 
           LEFT JOIN types t ON s.typeID = t.typeID 
