@@ -16,6 +16,25 @@ $statement = $db->prepare($query);
 $statement->execute();
 $students = $statement->fetchAll();
 $statement->closeCursor();
+
+// Attendance statistics
+$total = count($students);
+$present = 0;
+$absent = 0;
+
+foreach ($students as $student) {
+    if (strtolower($student['attendance']) === 'present') {
+        $present++;
+    } elseif (strtolower($student['attendance']) === 'absent') {
+        $absent++;
+    }
+}
+
+$stats = [
+    'total' => $total,
+    'present' => $present,
+    'absent' => $absent
+];
 ?>
 
 <?php include("header.php"); ?>
@@ -63,7 +82,7 @@ $statement->closeCursor();
                         </form>
                     </td>
                      <td>
-                            <form action="student_details.php" method="post">
+                            <form action="student_details.php" method="get">
                                 <input type="hidden" name="student_id" value="<?php echo $student['studentID']; ?>" />
                                 <input type="submit" value="View Details" />
                             </form>
@@ -72,6 +91,12 @@ $statement->closeCursor();
             <?php endforeach; ?>
             </tbody>
         </table>
+
+        <div class="attendance-stats">
+    <p>🧮 Total Students: <strong><?php echo $stats['total']; ?></strong></p>
+    <p>✅ Present: <strong><?php echo $stats['present']; ?></strong></p>
+    <p>❌ Absent: <strong><?php echo $stats['absent']; ?></strong></p>
+</div>
     </div>
 
     <p><a href="add_student_form.php">➕ Add Student</a></p>

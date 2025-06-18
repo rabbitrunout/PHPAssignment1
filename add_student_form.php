@@ -65,6 +65,9 @@
 
                 <label>Upload Image:</label>
                 <input type="file" name="file1" /> <br /> 
+
+                <label for="teacherNote">Teacher Note:</label>
+                <textarea name="teacherNote" id="teacherNote" rows="4" placeholder="Enter any important comments..."></textarea><br />
             </div>
 
             <div id="buttons">

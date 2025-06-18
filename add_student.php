@@ -6,6 +6,7 @@
     // alternative
     // $first_name = $_POST['first_name'];
     $last_name = filter_input(INPUT_POST, 'last_name');
+    $teacher_note = filter_input(INPUT_POST, 'teacherNote');
     $course = filter_input(INPUT_POST, 'course');
     $attendance = filter_input(INPUT_POST, 'attendance');
     $schedule = filter_input(INPUT_POST, 'schedule'); // assigns the value of the selected radio button
@@ -78,11 +79,12 @@
             
 
 
-        // Add the contact to the database
+        // Add the contact to the database 
         $query = 'INSERT INTO students
-            (firstName, lastName, course, attendance, schedule, startDate, imageName, typeID)
+            (firstName, lastName, course, attendance, schedule, startDate, imageName, typeID, teacherNote)
             VALUES
-            (:firstName, :lastName, :course, :attendance, :schedule, :startDate, :imageName, :typeID)';
+            (:firstName, :lastName, :course, :attendance, :schedule, :startDate, :imageName, :typeID, :teacherNote)';
+
 
         $statement = $db->prepare($query);
         $statement->bindValue(':firstName', $first_name);
@@ -93,6 +95,7 @@
         $statement->bindValue(':startDate', $start_date);
         $statement->bindValue(':imageName', $image_name);
         $statement->bindValue(':typeID', $type_id);
+        $statement->bindValue(':teacherNote', $teacher_note);
         $statement->execute();
         $statement->closeCursor();
 

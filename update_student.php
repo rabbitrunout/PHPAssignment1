@@ -12,16 +12,15 @@ $attendance = filter_input(INPUT_POST, 'attendance');
 $schedule = filter_input(INPUT_POST, 'schedule');
 $start_date = filter_input(INPUT_POST, 'start_date');
 $type_id = filter_input(INPUT_POST, 'type_id', FILTER_VALIDATE_INT);
+$teacher_note = filter_input(INPUT_POST, 'teacherNote');
 $image = $_FILES['image'] ?? null;
 
-// 
 if (!$student_id || !$first_name || !$last_name || !$course || !$attendance || !$schedule || !$start_date || !$type_id) {
     $_SESSION["add_error"] = "Invalid student data. Check all fields and try again.";
     header("Location: error.php");
     exit;
 }
 
-// 
 $query = 'SELECT * FROM students WHERE studentID = :studentID';
 $statement = $db->prepare($query);
 $statement->bindValue(':studentID', $student_id);
@@ -39,7 +38,6 @@ $old_image_name = $current_student['imageName'];
 $image_name = $old_image_name;
 $base_dir = 'images/';
 
-// 
 $queryStudents = 'SELECT * FROM students WHERE studentID != :studentID';
 $statement = $db->prepare($queryStudents);
 $statement->bindValue(':studentID', $student_id);
@@ -55,7 +53,6 @@ foreach ($students as $s) {
     }
 }
 
-// 
 if ($image && $image['error'] === UPLOAD_ERR_OK) {
     $original_filename = basename($image['name']);
     $upload_path = $base_dir . $original_filename;
@@ -67,7 +64,6 @@ if ($image && $image['error'] === UPLOAD_ERR_OK) {
     $new_image_name = substr($original_filename, 0, $dot_pos) . '_100' . substr($original_filename, $dot_pos);
     $image_name = $new_image_name;
 
-    // Delete
     if ($old_image_name !== 'placeholder_100.jpg') {
         $old_base = substr($old_image_name, 0, strrpos($old_image_name, '_100'));
         $old_ext = substr($old_image_name, strrpos($old_image_name, '.'));
@@ -82,7 +78,6 @@ if ($image && $image['error'] === UPLOAD_ERR_OK) {
     }
 }
 
-// Update student
 $query = '
     UPDATE students
     SET firstName = :firstName,
@@ -92,6 +87,7 @@ $query = '
         schedule = :schedule,
         startDate = :startDate,
         typeID = :typeID,
+        teacherNote = :teacherNote,
         imageName = :imageName
     WHERE studentID = :studentID';
 
@@ -103,6 +99,7 @@ $statement->bindValue(':attendance', $attendance);
 $statement->bindValue(':schedule', $schedule);
 $statement->bindValue(':startDate', $start_date);
 $statement->bindValue(':typeID', $type_id);
+$statement->bindValue(':teacherNote', $teacher_note);
 $statement->bindValue(':imageName', $image_name);
 $statement->bindValue(':studentID', $student_id);
 $statement->execute();

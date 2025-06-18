@@ -64,27 +64,31 @@
                     <select name="type_id">
                         <?php foreach ($types as $type): ?>
                         <option value="<?php echo $type['typeID']; ?>"
-                        <?php if ($type['typeID'] == $student['typeID']) echo 'selected'; ?>>
+                        <?php if ($type['typeID'] == $student['typeID']) echo 'selected'; ?>
+                        >
                         <?php echo htmlspecialchars($type['studentType']); ?>
-                    </option>
-                <?php endforeach; ?>
-            </select><br />
+                        </option>
+                        <?php endforeach; ?>
+                    </select><br />
 
-            <?php if (!empty($student['imageName'])): ?>
-                <label>Current Image:</label>
-                <img src="images/<?php echo htmlspecialchars($student['imageName']); ?>" height="100"><br />
-            <?php endif; ?>
+                    <label for="teacherNote">Teacher Note:</label>
+                    <textarea name="teacherNote" id="teacherNote"><?php echo htmlspecialchars($student['teacherNote']); ?></textarea><br />
 
-            <label>Update Image:</label>
-            <input type="file" name="image"><br />
-            </div>
-            <div id="buttons">
-                    <label>&nbsp;</label>
-                    <input type="submit" value="Update Student" /><br />
+                    <?php if (!empty($student['imageName'])): ?>
+                        <label>Current Image:</label>
+                        <img src="images/<?php echo htmlspecialchars($student['imageName']); ?>" height="100"><br />
+                    <?php endif; ?>
+
+                    <label>Update Image:</label>
+                    <input type="file" name="image"><br />
                 </div>
-            </form>
-            <p><a href="index.php">View Students List</a></p>
-        </main>
-        <?php include("footer.php"); ?>
-    </body>
+                <div id="buttons">
+                        <label>&nbsp;</label>
+                        <input type="submit" value="Update Student" /><br />
+                    </div>
+                </form>
+                <p><a href="index.php">View Students List</a></p>
+            </main>
+            <?php include("footer.php"); ?>
+        </body>
 </html>
