@@ -2,14 +2,14 @@
 session_start();
 require_once("database.php");
 
-// Получить список студентов
+// get list students
 $query = "SELECT studentID, firstName, lastName FROM students ORDER BY lastName";
 $statement = $db->prepare($query);
 $statement->execute();
 $students = $statement->fetchAll();
 $statement->closeCursor();
 
-// Если был передан student_id из карточки студента — сохранить для предварительного выбора
+// If the student_id was passed from the student's card, save it for pre—selection.
 $preselect_id = filter_input(INPUT_GET, 'student_id', FILTER_VALIDATE_INT);
 ?>
 
